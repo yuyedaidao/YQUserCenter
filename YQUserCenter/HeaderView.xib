@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="HeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="名字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mMd-Jt-fyj">
+                    <rect key="frame" x="279" y="60" width="42" height="26"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我是粉刷匠" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3F-6N-qGI">
+                    <rect key="frame" x="24" y="112" width="551" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="0.50980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="x3F-6N-qGI" firstAttribute="top" secondItem="mMd-Jt-fyj" secondAttribute="bottom" constant="26" id="1NT-JX-Dsq"/>
+                <constraint firstItem="mMd-Jt-fyj" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1rl-Ks-nPf"/>
+                <constraint firstItem="x3F-6N-qGI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="Hot-iS-P9u"/>
+                <constraint firstItem="mMd-Jt-fyj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="60" id="MG9-eP-B43"/>
+                <constraint firstAttribute="trailing" secondItem="x3F-6N-qGI" secondAttribute="trailing" constant="25" id="yyU-TG-wWe"/>
+            </constraints>
+            <connections>
+                <outlet property="detailLabel" destination="x3F-6N-qGI" id="FEk-YX-v3v"/>
+                <outlet property="nameLabel" destination="mMd-Jt-fyj" id="VmH-Cw-zA7"/>
+            </connections>
+            <point key="canvasLocation" x="177" y="457"/>
+        </view>
+    </objects>
+</document>
