@@ -50,7 +50,10 @@ static CGFloat const kPageControlHeight = 36.0f;
             __strong typeof(ws) self = ws;
             NSInteger oldIndex = [self.contentViewControllers indexOfObject:self.viewControllers.firstObject];
             if (oldIndex != index) {
-                [self setViewControllers:@[self.contentViewControllers[index]] direction:oldIndex < index ? UIPageViewControllerNavigationDirectionForward : UIPageViewControllerNavigationDirectionReverse animated:YES completion:nil];
+                [self showFakeHeaderView];
+                [self setViewControllers:@[self.contentViewControllers[index]] direction:oldIndex < index ? UIPageViewControllerNavigationDirectionForward : UIPageViewControllerNavigationDirectionReverse animated:YES completion:^(BOOL finished) {
+                    [self hideFakeHeaderView];
+                }];
             }
         }];
         pageControl;
@@ -62,6 +65,24 @@ static CGFloat const kPageControlHeight = 36.0f;
     CGRect frame = self.pageControl.frame;
     frame.size.height = kPageControlHeight;
     self.pageControl.frame = frame;
+}
+
+#pragma mark helper
+- (void)showFakeHeaderView {
+    UIView *view = [(TableViewController *)self.viewControllers.firstObject headerView];
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    self.fakeHeaderImgView.image = image;
+    CGRect frame = self.fakeHeaderImgView.frame;
+    frame.origin.y = self.pageControl.frame.origin.y - kHeaderHeight + kPageControlHeight;
+    self.fakeHeaderImgView.frame = frame;
+    self.fakeHeaderImgView.hidden = NO;
+}
+
+- (void)hideFakeHeaderView {
+    self.fakeHeaderImgView.hidden = YES;
 }
 
 #pragma mark table delegate
@@ -89,21 +110,11 @@ static CGFloat const kPageControlHeight = 36.0f;
 }
 
 - (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> *)pendingViewControllers {
-
-    UIView *view = [(TableViewController *)self.viewControllers.firstObject headerView];
-    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0);
-    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    self.fakeHeaderImgView.image = image;
-    CGRect frame = self.fakeHeaderImgView.frame;
-    frame.origin.y = self.pageControl.frame.origin.y - kHeaderHeight + kPageControlHeight;
-    self.fakeHeaderImgView.frame = frame;
-    self.fakeHeaderImgView.hidden = NO;
+    [self showFakeHeaderView];
 }
 
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed {
-    self.fakeHeaderImgView.hidden = YES;
+    [self hideFakeHeaderView];
     NSInteger index = [self.contentViewControllers indexOfObject:self.viewControllers.firstObject];
     self.pageControl.selectedIndex = index;
     
