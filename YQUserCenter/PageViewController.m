@@ -51,7 +51,9 @@ static CGFloat const kPageControlHeight = 36.0f;
             NSInteger oldIndex = [self.contentViewControllers indexOfObject:self.viewControllers.firstObject];
             if (oldIndex != index) {
                 [self showFakeHeaderView];
+                __weak typeof(self) ws = self;
                 [self setViewControllers:@[self.contentViewControllers[index]] direction:oldIndex < index ? UIPageViewControllerNavigationDirectionForward : UIPageViewControllerNavigationDirectionReverse animated:YES completion:^(BOOL finished) {
+                    __strong typeof(ws) self = ws;
                     [self hideFakeHeaderView];
                 }];
             }
